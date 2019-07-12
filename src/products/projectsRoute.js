@@ -35,7 +35,28 @@ route.get("/", (req, res) => {
   }
 });
 
-route.delete("/:id", (req, res) => {});
+route.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  if (!id || isNaN(id)) {
+    return res.status(400).json({
+      message: "invalid id"
+    });
+  }
+  try {
+    db.remove(id).then(data => {
+      if (data === 0) {
+        return res.status(200).json({
+          message: "invalid id"
+        });
+      }
+      return res.status(200).json({
+        data: "project deleted"
+      });
+    });
+  } catch (err) {
+    res.status(500).send(err, "fi");
+  }
+});
 
 route.put("/:id", (req, res) => {
   const { name, description } = req.body;

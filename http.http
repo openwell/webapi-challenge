@@ -23,3 +23,6 @@ Content-Type: application/json
     "name": "Hiii",
     "description": "Love the Lord"
 }
+
+###
+DELETE http://localhost:4000/api/projects/5
