@@ -1,14 +1,18 @@
 const express = require("express");
-
 const helmet = require("helmet");
+
+const actionsRoute = require('./actions/actionsRoutes')
 
 const app = express();
 app.use(express.json());
-
 app.use(logger, helmet());
 
 
+app.use('/api/actions', actionsRoute)
+
+
 app.get("/", (req, res) => {
+  console.log('object');
   res.send(`<h2>Let's write some middleware!</h2>`);
 });
 
