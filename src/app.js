@@ -2,6 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 
 const actionsRoute = require('./actions/actionsRoutes')
+const projectsRoute = require('./products/projectsRoute')
 
 const app = express();
 app.use(express.json());
@@ -9,6 +10,7 @@ app.use(logger, helmet());
 
 
 app.use('/api/actions', actionsRoute)
+app.use('/api/projects', projectsRoute)
 
 
 app.get("/", (req, res) => {
