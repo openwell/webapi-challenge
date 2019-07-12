@@ -4,7 +4,25 @@ const db = require("../../data/helpers/projectModel");
 const route = express.Router();
 
 route.post("/", (req, res) => {
-  
+  const { name, description } = req.body;
+  if (!req.body) {
+    return res.status(400).json({
+      message: "missing project data"
+    });
+  } else if (!name || !description) {
+    return res.status(400).json({
+      message: "invalid project name or description"
+    });
+  }
+  try {
+    db.insert(req.body).then(data => {
+      return res.status(200).json({
+        data: data
+      });
+    });
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 route.get("/", (req, res) => {
@@ -22,7 +40,3 @@ route.delete("/:id", (req, res) => {});
 route.put("/:id", (req, res) => {});
 
 module.exports = route;
-
-
-
-
